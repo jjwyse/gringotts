@@ -9,10 +9,28 @@
 ## Overview
 
 ## Installation
+Install [Java](https://java.com/en/download/).
+> __NOTE:__ `Java` version must  be >= `1.8.0_40`
+
+Install [Maven](https://maven.apache.org/download.cgi).
+> __NOTE:__ `Maven` version must  be >= `3.1.1`
 
 ## Configuration
+In the base directory, copy the `application.properties.tpl` file to `application.properties`:
+```
+$ cp application.properties.tpl application.properties
+```
 
-## Running
+## Compiling and Running
+First, compile the code using maven:
+```
+$ mvn package
+```
+
+If this compile successfully, fire that bad boy up:
+```
+$ java -jar target/gs-spring-boot-0.1.0.jar
+```
 
 ## Notes
 ### Technology Choices
