@@ -40,3 +40,7 @@ Initially, I was going to spin up a quick node `express` app to solve this issue
 Given more time, I would abstract out the Unirest HTTP client code that is used into a wrapper.  I started down this 
 route, but for the sake of time stopped.  The direction I was going, was to create an `Http` interface and then have 
 a `UnirestHttpImpl`.  This would allow gringotts to be more loosely coupled with any specific HTTP implementation.  
+
+### Bonus
+As someone who wants to support local business, as well as the best email SaaS provider out there, 
+I also included an integration with Sendgrid to send emails as well. #SupportLocalBusiness :smile:

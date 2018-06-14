@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import email.exception.EmailServiceException;
 import email.pojo.Email;
 import email.pojo.EmailResponse;
 import email.service.EmailService;
@@ -16,7 +17,6 @@ import org.springframework.web.util.HtmlUtils;
  * @author jjwyse
  */
 public class MailgunServiceImpl implements EmailService {
-    private static final String HEADER_FORM_URL_ENCODED = "x-www-form-urlencoded";
 
     @Value("${mailgun.base.url}")
     private String baseUrl;
@@ -33,17 +33,16 @@ public class MailgunServiceImpl implements EmailService {
         String to = String.format("%s %s", email.getTo_name(), email.getTo());
         try {
             HttpResponse<JsonNode> response = Unirest.post(url)
-                    .basicAuth("api", apiKey)
-                    .header("accept", "application/json")
-                    .field("from", from, HEADER_FORM_URL_ENCODED)
-                    .field("to", to, HEADER_FORM_URL_ENCODED)
-                    .field("subject", email.getSubject(), HEADER_FORM_URL_ENCODED)
-                    .field("text", HtmlUtils.htmlEscape(email.getBody()), HEADER_FORM_URL_ENCODED)
+                    .basicAuth(API, apiKey)
+                    .header(ACCEPT, APPLICATION_JSON)
+                    .field(TO, to, FORM_URL_ENCODED)
+                    .field(FROM, from, FORM_URL_ENCODED)
+                    .field(SUBJECT, email.getSubject(), FORM_URL_ENCODED)
+                    .field(TEXT, HtmlUtils.htmlEscape(email.getBody()), FORM_URL_ENCODED)
                     .asJson();
             return MailgunEmailUtil.toEmailResponse(response.getBody().getObject());
         } catch (UnirestException e) {
-            e.printStackTrace();
-            return null;
+            throw new EmailServiceException(e);
         }
     }
 }
