@@ -1,7 +1,8 @@
 package email.service.impl;
 
+import email.pojo.Email;
+import email.pojo.EmailResponse;
 import email.service.EmailService;
-import email.service.pojo.Email;
 
 /**
  * TODO - JJW
@@ -9,8 +10,8 @@ import email.service.pojo.Email;
  */
 public class MandrillServiceImpl implements EmailService {
     @Override
-    public Email sendEmail(Email email) {
+    public EmailResponse sendEmail(Email email) {
         // TODO - JJW
-        return new Email();
+        return new EmailResponse("foo", "bar");
     }
 }

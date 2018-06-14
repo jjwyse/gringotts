@@ -35,3 +35,8 @@ $ java -jar target/gs-spring-boot-0.1.0.jar
 ## Notes
 ### Technology Choices
 Initially, I was going to spin up a quick node `express` app to solve this issue.  I find them very lightweight, and zero to "hello world" incredibly fast for quick apps like this.  That being said, the directions explicitly mentioned demonstrating OO principles, which I just have more experience designing and building in Java. The directions also mentioned the ability to easily modify a configuration file to swap out which 3rd party email provider is being used.  To me, that screamed polymorphism and using DI to quickly swap out the underlying implementation of some interface.  All of that being said, after a bit of deliberation, I chose Java.  I also chose Spring to handle IoC.  To be completely honest, I think Spring is a little heavyweight for a quick app like this, as is often my feeling with Spring, but using Spring Boot, I had a simple web server up and running in less than five minutes, with only a few lines of code.  Don't judge me too much for using Spring here, although I still feel a little wrong using such a heavyweight library for such a simple application 😬.
+
+### Design Compromises
+Given more time, I would abstract out the Unirest HTTP client code that is used into a wrapper.  I started down this 
+route, but for the sake of time stopped.  The direction I was going, was to create an `Http` interface and then have 
+a `UnirestHttpImpl`.  This would allow gringotts to be more loosely coupled with any specific HTTP implementation.  
