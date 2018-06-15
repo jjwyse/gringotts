@@ -65,6 +65,8 @@ curl --request POST \
 }'
 ```
 
+Now, if you want to swap out which email service is being used under the hood, simply stop the app, change the `email.service` property in your `application.properties` file, and start it back up.
+
 The unit tests run as part of the build, but if at any point you want to run just the unit tests, you can do so like this:
 
 ```
