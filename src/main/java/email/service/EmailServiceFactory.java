@@ -1,6 +1,5 @@
-package email.util;
+package email.service;
 
-import email.service.EmailService;
 import email.service.impl.MailgunServiceImpl;
 import email.service.impl.MandrillServiceImpl;
 import email.service.impl.SendgridServiceImpl;
@@ -11,13 +10,13 @@ import email.service.impl.SendgridServiceImpl;
  * @author jjwyse
  */
 public class EmailServiceFactory {
-    public static EmailService build(String emailService) {
+    public static EmailService build(EmailServiceProvider emailService) {
         switch (emailService) {
-            case "mailgun":
+            case mailgun:
                 return new MailgunServiceImpl();
-            case "sendgrid":
+            case sendgrid:
                 return new SendgridServiceImpl();
-            case "mandrill":
+            case mandrill:
             default:
                 return new MandrillServiceImpl();
         }

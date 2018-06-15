@@ -6,10 +6,9 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import email.exception.EmailServiceException;
 import email.pojo.Email;
-import email.pojo.EmailResponse;
 import email.service.EmailService;
-import email.util.MailgunEmailUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 /**
@@ -25,7 +24,7 @@ public class MailgunServiceImpl implements EmailService {
     private String apiKey;
 
     @Override
-    public EmailResponse sendEmail(Email email) {
+    public void sendEmail(Email email) {
         // something like https://api.mailgun.net/v3/some-domain.mailgun.org/messages
         String url = String.format("%s/%s", baseUrl, "messages");
 
@@ -40,7 +39,7 @@ public class MailgunServiceImpl implements EmailService {
                     .field(SUBJECT, email.getSubject(), FORM_URL_ENCODED)
                     .field(TEXT, HtmlUtils.htmlEscape(email.getBody()), FORM_URL_ENCODED)
                     .asJson();
-            return MailgunEmailUtil.toEmailResponse(response.getBody().getObject());
+            // TODO - JJW - check for errors, etc. and handle appropriately
         } catch (UnirestException e) {
             throw new EmailServiceException(e);
         }

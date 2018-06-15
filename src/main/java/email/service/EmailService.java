@@ -1,7 +1,6 @@
 package email.service;
 
 import email.pojo.Email;
-import email.pojo.EmailResponse;
 
 /**
  * Main email service interface, defining the API for interacting with any of our different email services within
@@ -32,5 +31,5 @@ public interface EmailService {
      * @param email The email to send
      * @return The response from the email delivery
      */
-    EmailResponse sendEmail(Email email);
+    void sendEmail(Email email);
 }

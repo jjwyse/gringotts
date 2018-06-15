@@ -6,9 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import email.exception.EmailServiceException;
 import email.pojo.Email;
-import email.pojo.EmailResponse;
 import email.service.EmailService;
-import email.util.MailgunEmailUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +26,7 @@ public class SendgridServiceImpl implements EmailService {
     private String apiKey;
 
     @Override
-    public EmailResponse sendEmail(Email email) {
+    public void sendEmail(Email email) {
         String url = String.format("%s/%s", baseUrl, SEND_EMAIL_URI);
 
         // woof ... one of those times where I really hate the verbosity of Java.  save me JS :prayer:
@@ -56,7 +54,7 @@ public class SendgridServiceImpl implements EmailService {
                     .header(CONTENT_TYPE, APPLICATION_JSON)
                     .body(jsonBody)
                     .asJson();
-            return MailgunEmailUtil.toEmailResponse(response.getBody().getObject());
+            // TODO - JJW - check for errors in the response and handle appropriately
         } catch (UnirestException e) {
             throw new EmailServiceException(e);
         }

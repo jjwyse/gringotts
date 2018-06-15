@@ -2,7 +2,8 @@ package core;
 
 import com.mashape.unirest.http.Unirest;
 import email.service.EmailService;
-import email.util.EmailServiceFactory;
+import email.service.EmailServiceFactory;
+import email.service.EmailServiceProvider;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -24,7 +25,7 @@ public class Application {
     private static final String SSL = "SSL";
 
     @Value("${email.service}")
-    private String emailService;
+    private EmailServiceProvider emailService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

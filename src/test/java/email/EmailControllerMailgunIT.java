@@ -38,7 +38,7 @@ public class EmailControllerMailgunIT {
                 "Joseph Pulaski",
                 "subject",
                 "body");
-        mvc.perform(MockMvcRequestBuilders.post("/email")
+        mvc.perform(MockMvcRequestBuilders.post("/v1/email")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JacksonUtil.toString(email)))

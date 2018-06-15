@@ -6,12 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * TODO - JJW
+ * Test helper, which provides a static interface with useful functions that are used in multiple tests
  * @author jjwyse
  */
 public class TestHelper {
@@ -23,12 +21,10 @@ public class TestHelper {
                 "Joseph Pulaski",
                 "subject",
                 "body");
-        mvc.perform(MockMvcRequestBuilders.post("/email")
+        mvc.perform(MockMvcRequestBuilders.post("/v1/email")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JacksonUtil.toString(email)))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("id")))
-                .andExpect(content().string(containsString("message")));
+                .andExpect(status().isOk());
     }
 }
