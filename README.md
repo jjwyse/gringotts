@@ -44,6 +44,10 @@ If this compiles successfully, fire that bad boy up:
 $ java -jar target/gs-spring-boot-0.1.0.jar
 ```
 
+> **PROTIP**: You can also set this up in the IDE of your choice (if you're into IDEs) by importing it as a new Maven
+> project.
+
+
 At this point, you should be able to send an email!  Try the following:
 ```
 curl --request POST \
@@ -59,10 +63,7 @@ curl --request POST \
 }'
 ```
 
-> **PROTIP**: You can also set this up in the IDE of your choice (if you're into IDEs) by importing it as a new Maven
-> project.
-
-To just run unit tests, run:
+The unit tests run as part of the build, but if at any point you want to _just_ run the unit tests, you can do so like this:
 
 ```
 $ mvn test
@@ -81,7 +82,7 @@ after a bit of deliberation, I chose Java. I also chose Spring to handle IoC. To
 is a little heavyweight for a quick app like this, as is often my feeling with Spring, but using Spring Boot, I had a
 simple web server up and running in less than five minutes, with only a few lines of code. Don't judge me too much for
 using Spring here, although I still feel a little wrong using such a heavyweight library for such a simple
-application.  I also justified it, as the
+application.
 
 ## Design Decisions/Compromises
 ### HTTP Client Code

@@ -1,7 +1,7 @@
 package email.service.exception;
 
 /**
- * TODO - JJW
+ * Generic service exception that indicates that something known went wrong in the service tier
  * @author jjwyse
  */
 public class EmailServiceException extends RuntimeException {
