@@ -34,6 +34,11 @@ $ java -jar target/gs-spring-boot-0.1.0.jar
 
 > __PROTIP__: You can also set this up in the IDE of your choice (if you're into IDEs) by importing it as a new Maven
  project.
+ 
+To just run unit tests, run:
+```
+$ mvn test
+```
 
 ## Notes
 ### Technology Choices

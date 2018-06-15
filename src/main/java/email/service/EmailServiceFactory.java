@@ -10,7 +10,16 @@ import email.service.impl.SendgridServiceImpl;
  * @author jjwyse
  */
 public class EmailServiceFactory {
+    /**
+     * Builds the proper EmailService based on the given email service provider
+     * @param emailService The service provider
+     * @return The email service based on the given provider
+     */
     public static EmailService build(EmailServiceProvider emailService) {
+        if (emailService == null) {
+            return new MandrillServiceImpl();
+        }
+
         switch (emailService) {
             case mailgun:
                 return new MailgunServiceImpl();

@@ -1,7 +1,7 @@
 package email.pojo;
 
 /**
- * Email POJO, which defines all of the fields that make up a POJO in gringotts
+ * Email POJO, which defines all of the fields that make up the email domain object in gringotts
  * @author jjwyse
  */
 public class Email {

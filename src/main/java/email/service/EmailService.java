@@ -29,7 +29,6 @@ public interface EmailService {
     /**
      * Send an email
      * @param email The email to send
-     * @return The response from the email delivery
      */
     void sendEmail(Email email);
 }

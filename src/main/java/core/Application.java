@@ -19,6 +19,10 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
 
+/**
+ * Main entry point into the app, which goes about spinning up an embedded tomcat servlet container,
+ * and serving up our gringotts API.
+ */
 @SpringBootApplication
 @ComponentScan({"email"})
 public class Application {
@@ -31,6 +35,11 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    /**
+     * Generates the email service during startup that will be used to send emails.  This service will be determined
+     * from the email.service property that is set in your application.properties file
+     * @return The email service used to send emails in gringotts
+     */
     @Bean
     public EmailService emailService() {
         return EmailServiceFactory.build(emailService);
