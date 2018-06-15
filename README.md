@@ -52,23 +52,22 @@ $ java -jar target/gs-spring-boot-0.1.0.jar
 
 At this point, you should be able to send an email!  Try the following:
 ```
-curl --request POST \
-  --url http://localhost:8080/v1/email \
-  --header 'content-type: application/json' \
-  --data '{
-	"to": "YOUR_EMAIL",
-	"to_name": "Foo Bar",
-	"from": "YOUR_EMAIL",
-	"from_name": "Foo Bar",
-	"subject": "Hello, world!",
-	"body": "<h1>i am the body!</h1>"
-}'
+$ curl --request POST \
+    --url http://localhost:8080/v1/email \
+    --header 'content-type: application/json' \
+    --data '{
+  	"to": "joshua.wyse@gmail.com",
+  	"to_name": "Josh Wyse",
+  	"from": "noreply@gringotts.com",
+  	"from_name": "Mr Gringotts",
+  	"subject": "Yay, I used Gringotts!",
+  	"body": "<h1>Hooray!</h1>"
+  }'
 ```
 
 Now, if you want to swap out which email service is being used under the hood, simply stop the app, change the `email.service` property in your `application.properties` file, and start it back up.
 
-The unit tests run as part of the build, but if at any point you want to run just the unit tests, you can do so like this:
-
+Lastly, the unit tests run as part of the build, but if at any point you want to run just the unit tests, you can do so like this:
 ```
 $ mvn test
 ```
