@@ -43,7 +43,7 @@ public class SendgridServiceImpl implements EmailService {
                 .put(SUBJECT, email.getSubject())
                 .put(CONTENT, new JSONArray()
                         .put(new JSONObject()
-                                .put(TYPE, TEXT_HTML)
+                                .put(TYPE, TEXT_PLAIN)
                                 .put(VALUE, email.getBody())))
                 .toString();
 

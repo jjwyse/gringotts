@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
@@ -29,15 +29,24 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- HTTP client -->
+        <dependency>
             <groupId>com.mashape.unirest</groupId>
             <artifactId>unirest-java</artifactId>
             <version>1.4.9</version>
         </dependency>
 
+        <!-- HTML utilities (used for stripping HTML tags.  full disclosure, hate depending on a third party lib for something so trivial and small,
+        but played around for a bit and this was a non-trivial thing to do, so i listened to up votes on stackoverflow (https://stackoverflow.com/questions/240546/remove-html-tags-from-a-string/3149645#3149645) -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.3</version>
         </dependency>
     </dependencies>
 

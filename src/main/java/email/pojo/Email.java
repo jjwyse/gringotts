@@ -1,5 +1,7 @@
 package email.pojo;
 
+import org.jsoup.Jsoup;
+
 /**
  * Email POJO, which defines all of the fields that make up the email domain object in gringotts
  * @author jjwyse
@@ -45,6 +47,6 @@ public class Email {
     }
 
     public String getBody() {
-        return body;
+        return body == null ? null : Jsoup.parse(body).text();
     }
 }

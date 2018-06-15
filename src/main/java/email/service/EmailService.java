@@ -21,7 +21,7 @@ public interface EmailService {
     String NAME = "name";
     String SUBJECT = "subject";
     String TEXT = "text";
-    String TEXT_HTML = "text/html";
+    String TEXT_PLAIN = "text/plain";
     String TO = "to";
     String TYPE = "type";
     String VALUE = "value";

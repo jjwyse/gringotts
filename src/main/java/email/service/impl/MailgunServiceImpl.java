@@ -8,8 +8,6 @@ import email.exception.EmailServiceException;
 import email.pojo.Email;
 import email.service.EmailService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
-import org.springframework.web.util.HtmlUtils;
 
 /**
  * Handles interacting with the Mailgun API
@@ -37,7 +35,7 @@ public class MailgunServiceImpl implements EmailService {
                     .field(TO, to, FORM_URL_ENCODED)
                     .field(FROM, from, FORM_URL_ENCODED)
                     .field(SUBJECT, email.getSubject(), FORM_URL_ENCODED)
-                    .field(TEXT, HtmlUtils.htmlEscape(email.getBody()), FORM_URL_ENCODED)
+                    .field(TEXT, email.getBody(), FORM_URL_ENCODED)
                     .asJson();
             // TODO - JJW - check for errors, etc. and handle appropriately
         } catch (UnirestException e) {
