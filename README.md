@@ -96,7 +96,22 @@ an email is a little different than creating a new server-side RESTful resource 
 I leveraged Github's issues functionality in order to ensure I listed out all of the requirements that were given for
  this application.  I also included a handful of other items that weren't requirements and were more things I would 
  do if I were to take more time on this.  Please visit the "Issues" tab in Github to see some of those outstanding 
- issues.
+ issues.  Some of those need to be fleshed out quite a bit more.
+ 
+### Error Handling
+Currently, the error handling in gringotts is pretty poor.  After making an API call to each service, 
+I just check to see if the response was a 20x response, and if it's not, I serialize the entire JSON response into a 
+`String` and send it back in an error.  Given more time, I'd try to clean this up a bit, 
+and do more testing to ensure I'm handling errors from each service appropriately.
+
+### Testing
+Currently, I'm not testing any of the `EmailService` implementations at all.  The way I would do this, 
+is mock the underlying HTTP endpoints using something like WireMock.  This would make it easy to test all of the 
+service code itself, while not depending on the third party email service itself.  All in all, 
+I don't have very great test coverage.  I'm very passionate about testing, and don't feel like I did a great job 
+communicating that in this app.  Given more time, I would spruce up the current tests, 
+as well as create a CI/CD pipeline where we depend on these tests to 1) merge code into Github and 2) before the code
+ gets deployed to production.
  
 ### Deployment/Infrastructure
 The instructions said to "organize, design, document and test your code as if it were going into production".  There 
@@ -108,11 +123,13 @@ easily scale.
 ## Random Notes
 ### Mandrill Account Setup
 As part of the Mandrill account setup, they require you to setup a "sending domain" before you can properly deliver 
-emails.  I have two of the three steps done to verify this process, however the email verification isn't working as 
-I'm not receiving the verification email from them.  I've reached out to their support to try to get some help, 
-but in the meantime, I do see API calls being sent successfully in my API logs UI, but they're just being queued up in 
-Mandrill until that final verification step is complete.
-
+emails.  I had two of the three steps done to verify this process, however the email verification isn't working as 
+I'm not receiving the verification email from them.  I reached out to their support to get some help, 
+and for some reason my personal domain email (joshua@joshuawyse.com) had been blacklisted as deliveries had failed 
+there in the past.  They reset that and I immediately got my verification email.  After finishing the setup for my 
+"sending domain" (DNS entries and email verification), I realized I needed to purchase monthly plan and a minimum of 
+25k transactions ($30 cost).  Spoke with Neil, and he verified I didn't need to go this far.  So all that being said,
+ I wasted quite a bit of time on that and I apologize for the delay in turning this in! 
 
 ## Bonus
 

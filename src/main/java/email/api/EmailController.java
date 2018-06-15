@@ -1,7 +1,9 @@
-package email;
+package email.api;
 
+import email.api.exception.BadRequestException;
 import email.pojo.Email;
 import email.service.EmailService;
+import email.service.exception.EmailServiceException;
 import email.util.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
@@ -24,7 +26,11 @@ public class EmailController {
      */
     @RequestMapping(value = "/v1/email", method = RequestMethod.POST)
     public void sendEmail(@Valid @RequestBody Email email) {
-        emailService.sendEmail(email);
+        try {
+            emailService.sendEmail(email);
+        } catch (EmailServiceException e) {
+            throw new BadRequestException(e);
+        }
     }
 
     /**

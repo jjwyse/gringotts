@@ -4,12 +4,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import email.exception.EmailServiceException;
+import email.service.exception.EmailServiceException;
 import email.pojo.Email;
 import email.service.EmailService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 
 /**
  * Handles all interactions with the Sendgrid email service
@@ -54,7 +55,9 @@ public class SendgridServiceImpl implements EmailService {
                     .header(CONTENT_TYPE, APPLICATION_JSON)
                     .body(jsonBody)
                     .asJson();
-            // TODO - JJW - check for errors in the response and handle appropriately
+            if (!HttpStatus.resolve(response.getStatus()).is2xxSuccessful()) {
+                throw new EmailServiceException(response.getBody().toString());
+            }
         } catch (UnirestException e) {
             throw new EmailServiceException(e);
         }

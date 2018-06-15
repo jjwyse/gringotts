@@ -1,4 +1,4 @@
-package email.exception;
+package email.service.exception;
 
 /**
  * TODO - JJW

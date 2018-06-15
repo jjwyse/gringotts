@@ -25,7 +25,7 @@ public class EmailControllerMailgunIT {
     private MockMvc mvc;
 
     @Test
-    public void testSendEmailViaMandrill() throws Exception {
+    public void testSendEmailViaMailgun() throws Exception {
         TestHelper.sendEmailAndValidate(mvc);
     }
 

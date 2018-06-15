@@ -4,10 +4,11 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import email.exception.EmailServiceException;
+import email.service.exception.EmailServiceException;
 import email.pojo.Email;
 import email.service.EmailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 
 /**
  * Handles interacting with the Mailgun API
@@ -37,7 +38,9 @@ public class MailgunServiceImpl implements EmailService {
                     .field(SUBJECT, email.getSubject(), FORM_URL_ENCODED)
                     .field(TEXT, email.getBody(), FORM_URL_ENCODED)
                     .asJson();
-            // TODO - JJW - check for errors, etc. and handle appropriately
+            if (!HttpStatus.resolve(response.getStatus()).is2xxSuccessful()) {
+                throw new EmailServiceException(response.getBody().toString());
+            }
         } catch (UnirestException e) {
             throw new EmailServiceException(e);
         }
