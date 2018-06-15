@@ -8,6 +8,9 @@
 
 ## Overview
 
+Gringotts is an email delivery API, that supports multiple third party email delivery services with a simple 
+configuration change.
+
 ## Installation
 
 Install [Java](https://java.com/en/download/).
@@ -60,18 +63,26 @@ configuration file to swap out which 3rd party email provider is being used. To 
 using dependency injection to quickly swap out the underlying implementation of some interface. All of that being said, 
 after a bit of deliberation, I chose Java. I also chose Spring to handle IoC. To be completely honest, I think Spring 
 is a little heavyweight for a quick app like this, as is often my feeling with Spring, but using Spring Boot, I had a 
-simple web server up and running in less than five minutes, with only a few lines of code. Don't judge me too much for using Spring here, although I still feel a little wrong using such a heavyweight library for such a simple application 😬.
+simple web server up and running in less than five minutes, with only a few lines of code. Don't judge me too much for 
+using Spring here, although I still feel a little wrong using such a heavyweight library for such a simple 
+application.  I also justified it, as the 
 
-### Design Decisions/Compromises
-
-#### HTTP Client Code
-
+## Design Decisions/Compromises
+### HTTP Client Code
 Given more time, I would abstract out the Unirest HTTP client code that is used into a wrapper. I started down this
 route, but for the sake of time stopped. The direction I was going, was to create an `Http` interface and then have
 a `UnirestHttpImpl`. This would allow gringotts to be more loosely coupled with any specific HTTP implementation.
 
-#### POST /email API
+### Interfaces FTW
+To handle the different email services, it felt like the perfect fit for polymorphism. This kept the API 
+controller  agnostic of what service it's actually  using, since it doesn't need to know.  It just gets the `EmailService` injected into it, 
+and knows how to call the `sendEmail` API on it.  This keeps the controller and service layers loosely coupled from 
+each other.  I also wrapped all `UnirestException` in the service layer and am throwing our generic 
+`EmailServiceException` so that the unirest code doesn't leak up into the controller layer.  This loose coupling 
+allows us to swap out the email service implementation with zero code changes, and loose coupling in general leads to
+ less fragile code and code that is easier to refactor at a later date.
 
+### POST /email API
 I wanted to keep the response from gringotts consistent back to the client, regardless of what the underlying email
 service returned. I started with a normalized `id` and `message` field for Mandrill and Mailgun,
 but then Sendgrid just returns a `202`, and no fields at all. I debated on what was best here,
@@ -81,7 +92,29 @@ guess contradicts my previous sentence), but I thought that was sufficient for t
 when I'm designing API, I like to return the fully hydrated created resource with a `201`. I do understand sending
 an email is a little different than creating a new server-side RESTful resource though.
 
-### Bonus
+### Project Management
+I leveraged Github's issues functionality in order to ensure I listed out all of the requirements that were given for
+ this application.  I also included a handful of other items that weren't requirements and were more things I would 
+ do if I were to take more time on this.  Please visit the "Issues" tab in Github to see some of those outstanding 
+ issues.
+ 
+### Deployment/Infrastructure
+The instructions said to "organize, design, document and test your code as if it were going into production".  There 
+are quite a few things I would focus on right away if this _were_ to be deployed in production, 
+and most are around deployment and infrastructure.  I would not use an embedded tomcat servlet container, 
+but use Tomcat itself.  I would also centralize all logging, and look into containerized deployments in order to 
+easily scale.
+
+## Random Notes
+### Mandrill Account Setup
+As part of the Mandrill account setup, they require you to setup a "sending domain" before you can properly deliver 
+emails.  I have two of the three steps done to verify this process, however the email verification isn't working as 
+I'm not receiving the verification email from them.  I've reached out to their support to try to get some help, 
+but in the meantime, I do see API calls being sent successfully in my API logs UI, but they're just being queued up in 
+Mandrill until that final verification step is complete.
+
+
+## Bonus
 
 As someone who wants to support local business, as well as the best email SaaS provider out there,
 I also included an integration with Sendgrid to send emails as well. #SupportLocalBusiness :smile:
