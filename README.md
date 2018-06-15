@@ -3,8 +3,6 @@
 ---
 
 [![version](http://img.shields.io/badge/version-v0.0.1-blue.svg)](#) [![versioning](http://img.shields.io/badge/versioning-semver-blue.svg)](http://semver.org/) [![branching](http://img.shields.io/badge/branching-github%20flow-blue.svg)](https://guides.github.com/introduction/flow/)
-[![Circle CI](https://circleci.com/gh/jjwyse/gringotts.svg?style=shield)](https://circleci.com/gh/jjwyse/gringotts)
-[![Coverage Status](https://coveralls.io/repos/github/jjwyse/gringotts/badge.svg)](https://coveralls.io/github/jjwyse/gringotts)
 
 ## Overview
 
@@ -40,7 +38,7 @@ First, compile the code using maven:
 $ mvn package
 ```
 
-If this compile successfully, fire that bad boy up:
+If this compiles successfully, fire that bad boy up:
 
 ```
 $ java -jar target/gs-spring-boot-0.1.0.jar
