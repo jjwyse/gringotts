@@ -32,6 +32,8 @@ You'll then need to populate any of the empty properties with your own API keys,
 
 ## Compiling and Running
 
+Assuming you have successfully installed Maven and Java, and `mvn` and `java` are both now on your `$PATH`, you're ready to compile and run gringotts.
+
 First, compile the code using maven:
 
 ```
@@ -63,7 +65,7 @@ curl --request POST \
 }'
 ```
 
-The unit tests run as part of the build, but if at any point you want to _just_ run the unit tests, you can do so like this:
+The unit tests run as part of the build, but if at any point you want to run just the unit tests, you can do so like this:
 
 ```
 $ mvn test
@@ -83,6 +85,8 @@ is a little heavyweight for a quick app like this, as is often my feeling with S
 simple web server up and running in less than five minutes, with only a few lines of code. Don't judge me too much for
 using Spring here, although I still feel a little wrong using such a heavyweight library for such a simple
 application.
+
+I also used `maven` as the build system because I am familiar with it and it just works.  I don't love XML (read: hate XML), but it does the job just fine.
 
 ## Design Decisions/Compromises
 ### HTTP Client Code
